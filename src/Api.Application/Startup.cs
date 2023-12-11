@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 
 namespace application
 {
@@ -31,6 +32,22 @@ namespace application
             ConfigureService.ConfigureDepedenciesService(services);
             ConfigureRepository.ConfigureDepedenciesRepository(services);
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Sistema de Agendamento de Consultas",
+                    Description = "Arquitetura DDD",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Fabricio José de Sousa",
+                        Email = "fabriciosousa16@hotmail.com",
+                        Url = new Uri("https://wa.me/5589994091618")
+                    },
+                });
+            });
+
             services.AddControllers();
         }
 
@@ -41,6 +58,15 @@ namespace application
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Sistema de Agendamento de Consultas");
+                c.RoutePrefix = string.Empty;
+            });
+
 
             app.UseRouting();
 

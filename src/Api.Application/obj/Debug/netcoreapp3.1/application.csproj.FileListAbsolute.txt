@@ -72,3 +72,8 @@ C:\Agendamento-de-Consultas\src\Api.Application\obj\Debug\netcoreapp3.1\applicat
 C:\Agendamento-de-Consultas\src\Api.Application\bin\Debug\netcoreapp3.1\AutoMapper.dll
 C:\Agendamento-de-Consultas\src\Api.Application\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Agendamento-de-Consultas\src\Api.Application\bin\Debug\netcoreapp3.1\System.Runtime.CompilerServices.Unsafe.dll
+C:\Agendamento-de-Consultas\src\Api.Application\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+C:\Agendamento-de-Consultas\src\Api.Application\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+C:\Agendamento-de-Consultas\src\Api.Application\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Agendamento-de-Consultas\src\Api.Application\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Agendamento-de-Consultas\src\Api.Application\obj\Debug\netcoreapp3.1\application.MvcApplicationPartsAssemblyInfo.cs
