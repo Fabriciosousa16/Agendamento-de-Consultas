@@ -1,20 +1,20 @@
 using System;
 using System.Threading.Tasks;
 using Api.Domain.Entities;
-using Api.Domain.Interfaces.Doctor;
+using Api.Domain.Interfaces.Patient;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Application.Controllers.Doctors
+namespace Api.Application.Controllers.Patients
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DoctorsController : ControllerBase
+    public class PatientsController : ControllerBase
     {
-        private readonly IDoctorService _doctorService;
+        private readonly IPatientService _patientService;
 
-        public DoctorsController(IDoctorService doctorService)
+        public PatientsController(IPatientService patientService)
         {
-            _doctorService = doctorService ?? throw new ArgumentNullException(nameof(doctorService));
+            _patientService = patientService ?? throw new ArgumentNullException(nameof(patientService));
         }
 
         [HttpGet]
@@ -26,8 +26,8 @@ namespace Api.Application.Controllers.Doctors
             }
             try
             {
-                var doctors = await _doctorService.GetAllAsync();
-                return Ok(doctors); //200
+                var patients = await _patientService.GetAllAsync();
+                return Ok(patients); //200
             }
             catch (Exception ex)
             {
@@ -36,7 +36,7 @@ namespace Api.Application.Controllers.Doctors
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetDoctorById(int id)
+        public async Task<IActionResult> GetPatientById(int id)
         {
             if (!ModelState.IsValid)
             {
@@ -44,12 +44,12 @@ namespace Api.Application.Controllers.Doctors
             }
             try
             {
-                var doctor = await _doctorService.GetAsync(id);
+                var patient = await _patientService.GetAsync(id);
 
-                if (doctor == null)
+                if (patient == null)
                     return NotFound(); // Retornar 404 se o usuário não for encontrado
 
-                return Ok(doctor); //200
+                return Ok(patient); //200
             }
             catch (Exception ex)
             {
@@ -58,7 +58,7 @@ namespace Api.Application.Controllers.Doctors
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] DoctorEntity doctor)
+        public async Task<IActionResult> CreateUser([FromBody] PatientEntity patient)
         {
             if (!ModelState.IsValid)
             {
@@ -66,10 +66,10 @@ namespace Api.Application.Controllers.Doctors
             }
             try
             {
-                var createdDoctor = await _doctorService.PostAsync(doctor);
-                if (createdDoctor != null)
+                var createdPatient = await _patientService.PostAsync(patient);
+                if (createdPatient != null)
                 {
-                    return CreatedAtAction(nameof(GetDoctorById), new { id = createdDoctor.IdDoctor }, createdDoctor); //201
+                    return CreatedAtAction(nameof(GetPatientById), new { id = createdPatient.IdPatient }, createdPatient); //201
                 }
                 else
                 {
@@ -84,16 +84,16 @@ namespace Api.Application.Controllers.Doctors
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateUser([FromBody] DoctorEntity doctor)
+        public async Task<IActionResult> UpdateUser([FromBody] PatientEntity patient)
         {
             try
             {
-                var updatedDoctor = await _doctorService.PutAsync(doctor);
+                var updatedPatient = await _patientService.PutAsync(patient);
 
-                if (updatedDoctor == null)
+                if (updatedPatient == null)
                     return NotFound(); // Retornar 404 se o usuário não for encontrado
 
-                return Ok(updatedDoctor); //200
+                return Ok(updatedPatient); //200
             }
             catch (Exception ex)
             {
@@ -111,12 +111,12 @@ namespace Api.Application.Controllers.Doctors
 
             try
             {
-                var deletedDoctor = await _doctorService.DeleteAsync(id);
+                var deletedPatient = await _patientService.DeleteAsync(id);
 
-                if (deletedDoctor == null)
+                if (deletedPatient == null)
                     return NotFound(); // Retornar 404 se o usuário não for encontrado
 
-                return Ok(deletedDoctor); //200
+                return Ok(deletedPatient); //200
             }
             catch (Exception ex)
             {

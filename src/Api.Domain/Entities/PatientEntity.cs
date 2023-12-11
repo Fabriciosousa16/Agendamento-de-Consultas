@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
 namespace Api.Domain.Entities
 {
@@ -10,8 +9,11 @@ namespace Api.Domain.Entities
         public int IdPatient { get; set; }
         public string Flat { get; set; }
 
+        [JsonIgnore]
         public UserEntity User { get; set; }
+        [JsonIgnore]
         public ICollection<QueryEntity> Queries { get; set; }
+        [JsonIgnore]
         public ICollection<PatientHistoryEntity> PatientHistories { get; set; }
     }
 }
