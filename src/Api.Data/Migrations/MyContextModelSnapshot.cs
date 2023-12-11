@@ -18,7 +18,7 @@ namespace Data.Migrations
                 .HasAnnotation("ProductVersion", "3.1.32")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Api.Domain.Entities.Doctor", b =>
+            modelBuilder.Entity("Api.Domain.Entities.DoctorEntity", b =>
                 {
                     b.Property<int>("IdDoctor")
                         .HasColumnType("int");
@@ -40,7 +40,7 @@ namespace Data.Migrations
                     b.ToTable("Doctors");
                 });
 
-            modelBuilder.Entity("Api.Domain.Entities.Patient", b =>
+            modelBuilder.Entity("Api.Domain.Entities.PatientEntity", b =>
                 {
                     b.Property<int>("IdPatient")
                         .HasColumnType("int");
@@ -59,7 +59,7 @@ namespace Data.Migrations
                     b.ToTable("Patients");
                 });
 
-            modelBuilder.Entity("Api.Domain.Entities.PatientHistory", b =>
+            modelBuilder.Entity("Api.Domain.Entities.PatientHistoryEntity", b =>
                 {
                     b.Property<int>("IdPatient")
                         .HasColumnType("int");
@@ -83,7 +83,7 @@ namespace Data.Migrations
                     b.ToTable("PatientHistories");
                 });
 
-            modelBuilder.Entity("Api.Domain.Entities.Profile", b =>
+            modelBuilder.Entity("Api.Domain.Entities.ProfileEntity", b =>
                 {
                     b.Property<int>("IdProfile")
                         .ValueGeneratedOnAdd()
@@ -103,7 +103,7 @@ namespace Data.Migrations
                     b.ToTable("Profiles");
                 });
 
-            modelBuilder.Entity("Api.Domain.Entities.Query", b =>
+            modelBuilder.Entity("Api.Domain.Entities.QueryEntity", b =>
                 {
                     b.Property<int>("IdQuery")
                         .ValueGeneratedOnAdd()
@@ -130,7 +130,7 @@ namespace Data.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<int?>("StatusCategoryIdStatus")
+                    b.Property<int?>("StatusCategoryEntityIdStatus")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdateAt")
@@ -144,12 +144,12 @@ namespace Data.Migrations
 
                     b.HasIndex("Status");
 
-                    b.HasIndex("StatusCategoryIdStatus");
+                    b.HasIndex("StatusCategoryEntityIdStatus");
 
                     b.ToTable("Queries");
                 });
 
-            modelBuilder.Entity("Api.Domain.Entities.StatusCategory", b =>
+            modelBuilder.Entity("Api.Domain.Entities.StatusCategoryEntity", b =>
                 {
                     b.Property<int>("IdStatus")
                         .ValueGeneratedOnAdd()
@@ -169,7 +169,7 @@ namespace Data.Migrations
                     b.ToTable("StatusCategories");
                 });
 
-            modelBuilder.Entity("Api.Domain.Entities.User", b =>
+            modelBuilder.Entity("Api.Domain.Entities.UserEntity", b =>
                 {
                     b.Property<int>("IdUser")
                         .ValueGeneratedOnAdd()
@@ -211,67 +211,67 @@ namespace Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Api.Domain.Entities.Doctor", b =>
+            modelBuilder.Entity("Api.Domain.Entities.DoctorEntity", b =>
                 {
-                    b.HasOne("Api.Domain.Entities.User", "User")
+                    b.HasOne("Api.Domain.Entities.UserEntity", "User")
                         .WithOne("Doctor")
-                        .HasForeignKey("Api.Domain.Entities.Doctor", "IdDoctor")
+                        .HasForeignKey("Api.Domain.Entities.DoctorEntity", "IdDoctor")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Api.Domain.Entities.Patient", b =>
+            modelBuilder.Entity("Api.Domain.Entities.PatientEntity", b =>
                 {
-                    b.HasOne("Api.Domain.Entities.User", "User")
+                    b.HasOne("Api.Domain.Entities.UserEntity", "User")
                         .WithOne("Patient")
-                        .HasForeignKey("Api.Domain.Entities.Patient", "IdPatient")
+                        .HasForeignKey("Api.Domain.Entities.PatientEntity", "IdPatient")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Api.Domain.Entities.PatientHistory", b =>
+            modelBuilder.Entity("Api.Domain.Entities.PatientHistoryEntity", b =>
                 {
-                    b.HasOne("Api.Domain.Entities.Patient", "Patient")
+                    b.HasOne("Api.Domain.Entities.PatientEntity", "Patient")
                         .WithMany("PatientHistories")
                         .HasForeignKey("IdPatient")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Api.Domain.Entities.Query", "Query")
+                    b.HasOne("Api.Domain.Entities.QueryEntity", "Query")
                         .WithMany("PatientHistories")
                         .HasForeignKey("IdQuery")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Api.Domain.Entities.Query", b =>
+            modelBuilder.Entity("Api.Domain.Entities.QueryEntity", b =>
                 {
-                    b.HasOne("Api.Domain.Entities.Doctor", "Doctor")
+                    b.HasOne("Api.Domain.Entities.DoctorEntity", "Doctor")
                         .WithMany("Queries")
                         .HasForeignKey("IdDoctor")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Api.Domain.Entities.Patient", "Patient")
+                    b.HasOne("Api.Domain.Entities.PatientEntity", "Patient")
                         .WithMany("Queries")
                         .HasForeignKey("IdPatient")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Api.Domain.Entities.Profile", "StatusCategory")
+                    b.HasOne("Api.Domain.Entities.ProfileEntity", "StatusCategory")
                         .WithMany()
                         .HasForeignKey("Status")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Api.Domain.Entities.StatusCategory", null)
+                    b.HasOne("Api.Domain.Entities.StatusCategoryEntity", null)
                         .WithMany("Query")
-                        .HasForeignKey("StatusCategoryIdStatus");
+                        .HasForeignKey("StatusCategoryEntityIdStatus");
                 });
 
-            modelBuilder.Entity("Api.Domain.Entities.User", b =>
+            modelBuilder.Entity("Api.Domain.Entities.UserEntity", b =>
                 {
-                    b.HasOne("Api.Domain.Entities.Profile", "ProfileStatus")
+                    b.HasOne("Api.Domain.Entities.ProfileEntity", "ProfileStatus")
                         .WithMany("Users")
                         .HasForeignKey("Profile")
                         .OnDelete(DeleteBehavior.Cascade)

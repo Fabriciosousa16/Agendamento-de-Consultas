@@ -118,7 +118,7 @@ namespace Data.Migrations
                     MedicalRecord = table.Column<string>(nullable: true),
                     IdDoctor = table.Column<int>(nullable: false),
                     IdPatient = table.Column<int>(nullable: false),
-                    StatusCategoryIdStatus = table.Column<int>(nullable: true)
+                    StatusCategoryEntityIdStatus = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -142,8 +142,8 @@ namespace Data.Migrations
                         principalColumn: "IdProfile",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Queries_StatusCategories_StatusCategoryIdStatus",
-                        column: x => x.StatusCategoryIdStatus,
+                        name: "FK_Queries_StatusCategories_StatusCategoryEntityIdStatus",
+                        column: x => x.StatusCategoryEntityIdStatus,
                         principalTable: "StatusCategories",
                         principalColumn: "IdStatus",
                         onDelete: ReferentialAction.Restrict);
@@ -197,9 +197,9 @@ namespace Data.Migrations
                 column: "Status");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Queries_StatusCategoryIdStatus",
+                name: "IX_Queries_StatusCategoryEntityIdStatus",
                 table: "Queries",
-                column: "StatusCategoryIdStatus");
+                column: "StatusCategoryEntityIdStatus");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_Email",

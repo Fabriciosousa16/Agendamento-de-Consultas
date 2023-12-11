@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace Api.Domain.Entities
 {
     public class UserEntity : BaseEntity
@@ -9,8 +11,11 @@ namespace Api.Domain.Entities
         public string Email { get; set; }
         public string Password { get; set; }
 
+        [JsonIgnore]
         public ProfileEntity ProfileStatus { get; set; }
+        [JsonIgnore]
         public DoctorEntity Doctor { get; set; }
+        [JsonIgnore]
         public PatientEntity Patient { get; set; }
     }
 }
