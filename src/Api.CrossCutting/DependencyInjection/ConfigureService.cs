@@ -3,6 +3,8 @@ using Api.Domain.Interfaces.User;
 using Microsoft.Extensions.DependencyInjection;
 using Api.Domain.Interfaces.Doctor;
 using Api.Domain.Interfaces.Patient;
+using Api.Domain.Interfaces.Query;
+
 
 namespace Api.CrossCutting.DependencyInjection
 {
@@ -13,6 +15,7 @@ namespace Api.CrossCutting.DependencyInjection
             serviceCollection.AddTransient<IUserService, UserService>();
             serviceCollection.AddTransient<IDoctorService, DoctorService>();
             serviceCollection.AddTransient<IPatientService, PatientService>();
+            serviceCollection.AddTransient<IQueryService, QueryService>();
         }
     }
 }
