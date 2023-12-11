@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Api.Service.Services;
 using Api.Domain.Interfaces.User;
 using Microsoft.Extensions.DependencyInjection;
+using Api.Domain.Interfaces.Doctor;
 
 namespace Api.CrossCutting.DependencyInjection
 {
@@ -13,6 +14,7 @@ namespace Api.CrossCutting.DependencyInjection
         public static void ConfigureDepedenciesService(IServiceCollection serviceCollection)
         {
             serviceCollection.AddTransient<IUserService, UserService>();
+            serviceCollection.AddTransient<IDoctorService, DoctorService>();
         }
     }
 }

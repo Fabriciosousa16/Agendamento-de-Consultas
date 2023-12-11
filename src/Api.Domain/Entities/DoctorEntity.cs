@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
 namespace Api.Domain.Entities
 {
@@ -11,7 +9,9 @@ namespace Api.Domain.Entities
         public string Specialty { get; set; }
         public string WorkSchedule { get; set; }
 
+        [JsonIgnore]
         public UserEntity User { get; set; }
+        [JsonIgnore]
         public ICollection<QueryEntity> Queries { get; set; }
     }
 }
