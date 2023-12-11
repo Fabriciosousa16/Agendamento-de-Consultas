@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace Api.Domain.Entities
 {
-    public class User : BaseEntity
+    public class UserEntity : BaseEntity
     {
         public int IdUser { get; set; }
         public string Name { get; set; }
@@ -14,8 +9,8 @@ namespace Api.Domain.Entities
         public string Email { get; set; }
         public string Password { get; set; }
 
-        public Profile ProfileStatus { get; set; }
-        public Doctor Doctor { get; set; }
-        public Patient Patient { get; set; }
+        public ProfileEntity ProfileStatus { get; set; }
+        public DoctorEntity Doctor { get; set; }
+        public PatientEntity Patient { get; set; }
     }
 }

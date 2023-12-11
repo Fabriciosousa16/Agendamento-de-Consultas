@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Api.Domain.Entities
 {
-    public class Query : BaseEntity
+    public class QueryEntity : BaseEntity
     {
         public int IdQuery { get; set; }
         public DateTime ConsultationSchedule { get; set; }
@@ -15,9 +15,9 @@ namespace Api.Domain.Entities
         public int IdDoctor { get; set; }
         public int IdPatient { get; set; }
 
-        public Doctor Doctor { get; set; }
-        public Patient Patient { get; set; }
-        public Profile StatusCategory { get; set; }
-        public ICollection<PatientHistory> PatientHistories { get; set; }
+        public DoctorEntity Doctor { get; set; }
+        public PatientEntity Patient { get; set; }
+        public ProfileEntity StatusCategory { get; set; }
+        public ICollection<PatientHistoryEntity> PatientHistories { get; set; }
     }
 }

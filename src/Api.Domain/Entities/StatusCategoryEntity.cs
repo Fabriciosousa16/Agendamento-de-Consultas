@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace Api.Domain.Entities
 {
-    public class StatusCategory : BaseEntity
+    public class StatusCategoryEntity : BaseEntity
     {
         public int IdStatus { get; set; }
         public string Status { get; set; }
-        public ICollection<Query> Query { get; set; }
+        public ICollection<QueryEntity> Query { get; set; }
 
     }
 }

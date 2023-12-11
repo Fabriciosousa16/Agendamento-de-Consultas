@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace Api.Domain.Entities
 {
-    public class Profile : BaseEntity
+    public class ProfileEntity : BaseEntity
     {
         public int IdProfile { get; set; }
         public string Name { get; set; }
 
-        public ICollection<User> Users { get; set; }
+        public ICollection<UserEntity> Users { get; set; }
     }
 }
