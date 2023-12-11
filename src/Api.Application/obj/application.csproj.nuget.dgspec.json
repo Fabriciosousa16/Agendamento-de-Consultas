@@ -87,7 +87,14 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Agendamento-de-Consultas\\src\\Api.Data\\Data.csproj": {
+                "projectPath": "C:\\Agendamento-de-Consultas\\src\\Api.Data\\Data.csproj"
+              },
+              "C:\\Agendamento-de-Consultas\\src\\Api.Service\\Service.csproj": {
+                "projectPath": "C:\\Agendamento-de-Consultas\\src\\Api.Service\\Service.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -98,6 +105,16 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[12.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -264,9 +281,6 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Agendamento-de-Consultas\\src\\Api.CrossCutting\\CrossCutting.csproj": {
-                "projectPath": "C:\\Agendamento-de-Consultas\\src\\Api.CrossCutting\\CrossCutting.csproj"
-              },
               "C:\\Agendamento-de-Consultas\\src\\Api.Data\\Data.csproj": {
                 "projectPath": "C:\\Agendamento-de-Consultas\\src\\Api.Data\\Data.csproj"
               },

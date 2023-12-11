@@ -69,3 +69,6 @@ C:\Agendamento-de-Consultas\src\Api.Application\bin\Debug\netcoreapp3.1\Service.
 C:\Agendamento-de-Consultas\src\Api.Application\bin\Debug\netcoreapp3.1\CrossCutting.pdb
 C:\Agendamento-de-Consultas\src\Api.Application\bin\Debug\netcoreapp3.1\Data.pdb
 C:\Agendamento-de-Consultas\src\Api.Application\obj\Debug\netcoreapp3.1\application.csproj.CopyComplete
+C:\Agendamento-de-Consultas\src\Api.Application\bin\Debug\netcoreapp3.1\AutoMapper.dll
+C:\Agendamento-de-Consultas\src\Api.Application\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Agendamento-de-Consultas\src\Api.Application\bin\Debug\netcoreapp3.1\System.Runtime.CompilerServices.Unsafe.dll

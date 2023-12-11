@@ -1,5 +1,4 @@
 using System;
-using System.Net;
 using System.Threading.Tasks;
 using Api.Domain.Entities;
 using Api.Domain.Interfaces.User;
@@ -7,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Application.Controllers.Users
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
