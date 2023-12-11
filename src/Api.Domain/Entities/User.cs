@@ -14,7 +14,7 @@ namespace Api.Domain.Entities
         public string Email { get; set; }
         public string Password { get; set; }
 
-        public TypeCategory TypeCategory { get; set; }
+        public Profile ProfileStatus { get; set; }
         public Doctor Doctor { get; set; }
         public Patient Patient { get; set; }
     }

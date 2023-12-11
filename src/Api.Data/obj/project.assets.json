@@ -1419,6 +1419,16 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Domain.dll": {}
+        }
       }
     }
   },
@@ -5411,10 +5421,16 @@
         "system.xml.xmlserializer.4.3.0.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
       ]
+    },
+    "Domain/1.0.0": {
+      "type": "project",
+      "path": "../Api.Domain/Domain.csproj",
+      "msbuildProject": "../Api.Domain/Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "Domain >= 1.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 3.1.32",
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.1.32",
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.32",
@@ -5427,11 +5443,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Agendamento-de-Consultas\\src\\Api.Data\\Data.csproj",
+      "projectUniqueName": "C:\\Agendamento-de-Consultas\\src\\Api.Data\\Data.csproj",
       "projectName": "Data",
-      "projectPath": "c:\\Agendamento-de-Consultas\\src\\Api.Data\\Data.csproj",
+      "projectPath": "C:\\Agendamento-de-Consultas\\src\\Api.Data\\Data.csproj",
       "packagesPath": "C:\\Users\\Fabricio Sousa\\.nuget\\packages\\",
-      "outputPath": "c:\\Agendamento-de-Consultas\\src\\Api.Data\\obj\\",
+      "outputPath": "C:\\Agendamento-de-Consultas\\src\\Api.Data\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Fabricio Sousa\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -5444,7 +5460,11 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Agendamento-de-Consultas\\src\\Api.Domain\\Domain.csproj": {
+              "projectPath": "C:\\Agendamento-de-Consultas\\src\\Api.Domain\\Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

@@ -17,6 +17,7 @@ namespace Api.Domain.Entities
 
         public Doctor Doctor { get; set; }
         public Patient Patient { get; set; }
+        public Profile StatusCategory { get; set; }
         public ICollection<PatientHistory> PatientHistories { get; set; }
     }
 }

@@ -10,3 +10,6 @@ C:\Agendamento-de-Consultas\src\Api.Data\obj\Debug\netcoreapp3.1\Data.pdb
 C:\Agendamento-de-Consultas\src\Api.Data\bin\Debug\netcoreapp3.1\Data.runtimeconfig.json
 C:\Agendamento-de-Consultas\src\Api.Data\bin\Debug\netcoreapp3.1\Data.runtimeconfig.dev.json
 C:\Agendamento-de-Consultas\src\Api.Data\obj\Debug\netcoreapp3.1\Data.genruntimeconfig.cache
+C:\Agendamento-de-Consultas\src\Api.Data\bin\Debug\netcoreapp3.1\Domain.dll
+C:\Agendamento-de-Consultas\src\Api.Data\bin\Debug\netcoreapp3.1\Domain.pdb
+C:\Agendamento-de-Consultas\src\Api.Data\obj\Debug\netcoreapp3.1\Data.csproj.CopyComplete
