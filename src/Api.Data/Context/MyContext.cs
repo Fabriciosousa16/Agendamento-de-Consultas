@@ -11,6 +11,7 @@ namespace Api.Data.Context
         public DbSet<DoctorEntity> Doctors { get; set; }
         public DbSet<PatientEntity> Patients { get; set; }
         public DbSet<QueryEntity> Queries { get; set; }
+        public DbSet<QueryPartientEntity> QueryPartients { get; set; }
         public DbSet<PatientHistoryEntity> PatientHistories { get; set; }
 
         // Construtor que aceita as opções do DbContext (usado para configurar a conexão com o banco de dados)
@@ -20,87 +21,127 @@ namespace Api.Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Configuração da entidade StatusCategory
-            modelBuilder.Entity<StatusCategoryEntity>()
-                .HasKey(sc => sc.IdStatus);
-
-            // Configuração da entidade Profile
-            modelBuilder.Entity<ProfileEntity>()
-                .HasKey(p => p.IdProfile);
-
-            // Configuração da entidade User
             modelBuilder.Entity<UserEntity>()
-                .HasKey(u => u.IdUser);
+            .HasOne(u => u.Profile)
+            .WithMany()
+            .HasForeignKey(u => u.IdProfile);
+
+            modelBuilder.Entity<DoctorEntity>()
+                .HasOne(d => d.User)
+                .WithMany()
+                .HasForeignKey(d => d.IdUser);
+
+            modelBuilder.Entity<PatientEntity>()
+                .HasOne(p => p.User)
+                .WithMany()
+                .HasForeignKey(p => p.IdUser);
+
+            modelBuilder.Entity<QueryEntity>()
+                .HasOne(q => q.Doctor)
+                .WithMany()
+                .HasForeignKey(q => q.IdDoctor);
+
+            modelBuilder.Entity<QueryEntity>()
+                .HasOne(q => q.Patient)
+                .WithMany()
+                .HasForeignKey(q => q.IdPatient);
+
+            modelBuilder.Entity<QueryPartientEntity>()
+                .HasOne(qp => qp.Status)
+                .WithMany()
+                .HasForeignKey(qp => qp.IdStatus);
+
+            modelBuilder.Entity<QueryPartientEntity>()
+                .HasOne(qp => qp.Doctor)
+                .WithMany()
+                .HasForeignKey(qp => qp.IdDoctor);
+
+            modelBuilder.Entity<QueryPartientEntity>()
+                .HasOne(qp => qp.Patient)
+                .WithMany()
+                .HasForeignKey(qp => qp.IdPatient);
+
+            modelBuilder.Entity<PatientHistoryEntity>()
+                .HasOne(ph => ph.Patient)
+                .WithMany()
+                .HasForeignKey(ph => ph.IdPatient);
+
+            modelBuilder.Entity<PatientHistoryEntity>()
+                .HasOne(ph => ph.Query)
+                .WithMany()
+                .HasForeignKey(ph => ph.IdQuery);
+
+            // Definindo autoincremento e unicidade para IdStatus
+            modelBuilder.Entity<StatusCategoryEntity>()
+                .Property(s => s.IdStatus)
+                .ValueGeneratedOnAdd();
+
+            // Definindo autoincremento e unicidade para IdProfile
+            modelBuilder.Entity<ProfileEntity>()
+                .Property(p => p.IdProfile)
+                .ValueGeneratedOnAdd();
+
+            // Definindo autoincremento, unicidade e tamanho máximo para Email
+            modelBuilder.Entity<UserEntity>()
+                .Property(u => u.IdUser)
+                .ValueGeneratedOnAdd();
 
             modelBuilder.Entity<UserEntity>()
                 .HasIndex(u => u.Email)
                 .IsUnique();
 
             modelBuilder.Entity<UserEntity>()
-                .Property(u => u.IdUser)
-                .UseIdentityColumn(); // Autoincremento
+                .HasIndex(u => u.CPF)
+                .IsUnique();
+
+            // Definindo autoincremento para IdDoctor
+            modelBuilder.Entity<DoctorEntity>()
+                .Property(d => d.IdDoctor)
+                .ValueGeneratedOnAdd();
+
+            // Definindo autoincremento para IdPatient
+            modelBuilder.Entity<PatientEntity>()
+                .Property(p => p.IdPatient)
+                .ValueGeneratedOnAdd();
+
+            // Definindo autoincremento para IdQuery
+            modelBuilder.Entity<QueryEntity>()
+                .Property(q => q.IdQuery)
+                .ValueGeneratedOnAdd();
+
+            // Definindo autoincremento para IdQueryPartient
+            modelBuilder.Entity<QueryPartientEntity>()
+                .Property(qp => qp.IdQueryPartient)
+                .ValueGeneratedOnAdd();
+
+            // Definindo autoincremento para IdHistory
+            modelBuilder.Entity<PatientHistoryEntity>()
+                .Property(ph => ph.IdHistory)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<StatusCategoryEntity>()
+                .HasKey(s => s.IdStatus);
+
+            modelBuilder.Entity<ProfileEntity>()
+                .HasKey(p => p.IdProfile);
 
             modelBuilder.Entity<UserEntity>()
-                .Property(u => u.Password)
-                .IsRequired()
-                .HasMaxLength(255); // Ajuste o tamanho conforme necessário
+                .HasKey(u => u.IdUser);
 
-            modelBuilder.Entity<UserEntity>()
-                .HasOne(u => u.ProfileStatus)
-                .WithMany(p => p.Users)
-                .HasForeignKey(u => u.Profile);
-
-            // Configuração da entidade Doctor
             modelBuilder.Entity<DoctorEntity>()
                 .HasKey(d => d.IdDoctor);
 
-            modelBuilder.Entity<DoctorEntity>()
-                .HasOne(d => d.User)
-                .WithOne(u => u.Doctor)
-                .HasForeignKey<DoctorEntity>(d => d.IdDoctor);
-
-            // Configuração da entidade Patient
             modelBuilder.Entity<PatientEntity>()
                 .HasKey(p => p.IdPatient);
 
-            modelBuilder.Entity<PatientEntity>()
-                .HasOne(p => p.User)
-                .WithOne(u => u.Patient)
-                .HasForeignKey<PatientEntity>(p => p.IdPatient);
-
-            // Configuração da entidade Query
             modelBuilder.Entity<QueryEntity>()
                 .HasKey(q => q.IdQuery);
 
-            modelBuilder.Entity<QueryEntity>()
-                .HasOne(q => q.StatusCategory)
-                .WithMany()
-                .HasForeignKey(q => q.Status)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<QueryEntity>()
-                .HasOne(q => q.Doctor)
-                .WithMany(d => d.Queries)
-                .HasForeignKey(q => q.IdDoctor);
-
-            modelBuilder.Entity<QueryEntity>()
-                .HasOne(q => q.Patient)
-                .WithMany(p => p.Queries)
-                .HasForeignKey(q => q.IdPatient);
-
-            // Configuração da entidade PatientHistory
-            modelBuilder.Entity<PatientHistoryEntity>()
-                .HasKey(ph => new { ph.IdPatient, ph.IdQuery });
+            modelBuilder.Entity<QueryPartientEntity>()
+                .HasKey(qp => qp.IdQueryPartient);
 
             modelBuilder.Entity<PatientHistoryEntity>()
-                .HasOne(ph => ph.Patient)
-                .WithMany(p => p.PatientHistories)
-                .HasForeignKey(ph => ph.IdPatient);
-
-            modelBuilder.Entity<PatientHistoryEntity>()
-                .HasOne(ph => ph.Query)
-                .WithMany(q => q.PatientHistories)
-                .HasForeignKey(ph => ph.IdQuery);
+                .HasKey(ph => ph.IdHistory);
 
             base.OnModelCreating(modelBuilder);
         }

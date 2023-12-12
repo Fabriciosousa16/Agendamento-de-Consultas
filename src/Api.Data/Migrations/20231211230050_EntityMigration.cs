@@ -48,16 +48,16 @@ namespace Data.Migrations
                     UpdateAt = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     CPF = table.Column<string>(nullable: true),
-                    Profile = table.Column<int>(nullable: false),
+                    IdProfile = table.Column<int>(nullable: false),
                     Email = table.Column<string>(nullable: true),
-                    Password = table.Column<string>(maxLength: 255, nullable: false)
+                    Password = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.IdUser);
                     table.ForeignKey(
-                        name: "FK_Users_Profiles_Profile",
-                        column: x => x.Profile,
+                        name: "FK_Users_Profiles_IdProfile",
+                        column: x => x.IdProfile,
                         principalTable: "Profiles",
                         principalColumn: "IdProfile",
                         onDelete: ReferentialAction.Cascade);
@@ -67,18 +67,20 @@ namespace Data.Migrations
                 name: "Doctors",
                 columns: table => new
                 {
-                    IdDoctor = table.Column<int>(nullable: false),
+                    IdDoctor = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CreateAt = table.Column<DateTime>(nullable: true),
                     UpdateAt = table.Column<DateTime>(nullable: true),
                     Specialty = table.Column<string>(nullable: true),
-                    WorkSchedule = table.Column<string>(nullable: true)
+                    WorkSchedule = table.Column<string>(nullable: true),
+                    IdUser = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Doctors", x => x.IdDoctor);
                     table.ForeignKey(
-                        name: "FK_Doctors_Users_IdDoctor",
-                        column: x => x.IdDoctor,
+                        name: "FK_Doctors_Users_IdUser",
+                        column: x => x.IdUser,
                         principalTable: "Users",
                         principalColumn: "IdUser",
                         onDelete: ReferentialAction.Cascade);
@@ -88,17 +90,19 @@ namespace Data.Migrations
                 name: "Patients",
                 columns: table => new
                 {
-                    IdPatient = table.Column<int>(nullable: false),
+                    IdPatient = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CreateAt = table.Column<DateTime>(nullable: true),
                     UpdateAt = table.Column<DateTime>(nullable: true),
-                    Flat = table.Column<string>(nullable: true)
+                    MedicalPlan = table.Column<string>(nullable: true),
+                    IdUser = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Patients", x => x.IdPatient);
                     table.ForeignKey(
-                        name: "FK_Patients_Users_IdPatient",
-                        column: x => x.IdPatient,
+                        name: "FK_Patients_Users_IdUser",
+                        column: x => x.IdUser,
                         principalTable: "Users",
                         principalColumn: "IdUser",
                         onDelete: ReferentialAction.Cascade);
@@ -112,13 +116,10 @@ namespace Data.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CreateAt = table.Column<DateTime>(nullable: true),
                     UpdateAt = table.Column<DateTime>(nullable: true),
-                    ConsultationSchedule = table.Column<DateTime>(nullable: false),
-                    Status = table.Column<int>(nullable: false),
                     Reason = table.Column<string>(nullable: true),
                     MedicalRecord = table.Column<string>(nullable: true),
                     IdDoctor = table.Column<int>(nullable: false),
-                    IdPatient = table.Column<int>(nullable: false),
-                    StatusCategoryEntityIdStatus = table.Column<int>(nullable: true)
+                    IdPatient = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -135,33 +136,59 @@ namespace Data.Migrations
                         principalTable: "Patients",
                         principalColumn: "IdPatient",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "QueryPartients",
+                columns: table => new
+                {
+                    IdQueryPartient = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CreateAt = table.Column<DateTime>(nullable: true),
+                    UpdateAt = table.Column<DateTime>(nullable: true),
+                    StartTime = table.Column<DateTime>(nullable: false),
+                    EndTime = table.Column<DateTime>(nullable: false),
+                    IdStatus = table.Column<int>(nullable: false),
+                    IdDoctor = table.Column<int>(nullable: false),
+                    IdPatient = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_QueryPartients", x => x.IdQueryPartient);
                     table.ForeignKey(
-                        name: "FK_Queries_Profiles_Status",
-                        column: x => x.Status,
-                        principalTable: "Profiles",
-                        principalColumn: "IdProfile",
-                        onDelete: ReferentialAction.Restrict);
+                        name: "FK_QueryPartients_Doctors_IdDoctor",
+                        column: x => x.IdDoctor,
+                        principalTable: "Doctors",
+                        principalColumn: "IdDoctor",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Queries_StatusCategories_StatusCategoryEntityIdStatus",
-                        column: x => x.StatusCategoryEntityIdStatus,
+                        name: "FK_QueryPartients_Patients_IdPatient",
+                        column: x => x.IdPatient,
+                        principalTable: "Patients",
+                        principalColumn: "IdPatient",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_QueryPartients_StatusCategories_IdStatus",
+                        column: x => x.IdStatus,
                         principalTable: "StatusCategories",
                         principalColumn: "IdStatus",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "PatientHistories",
                 columns: table => new
                 {
-                    IdPatient = table.Column<int>(nullable: false),
-                    IdQuery = table.Column<int>(nullable: false),
+                    IdHistory = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CreateAt = table.Column<DateTime>(nullable: true),
                     UpdateAt = table.Column<DateTime>(nullable: true),
-                    IdHistory = table.Column<int>(nullable: false)
+                    IdPatient = table.Column<int>(nullable: false),
+                    IdQuery = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PatientHistories", x => new { x.IdPatient, x.IdQuery });
+                    table.PrimaryKey("PK_PatientHistories", x => x.IdHistory);
                     table.ForeignKey(
                         name: "FK_PatientHistories_Patients_IdPatient",
                         column: x => x.IdPatient,
@@ -177,9 +204,24 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Doctors_IdUser",
+                table: "Doctors",
+                column: "IdUser");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PatientHistories_IdPatient",
+                table: "PatientHistories",
+                column: "IdPatient");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PatientHistories_IdQuery",
                 table: "PatientHistories",
                 column: "IdQuery");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Patients_IdUser",
+                table: "Patients",
+                column: "IdUser");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Queries_IdDoctor",
@@ -192,14 +234,25 @@ namespace Data.Migrations
                 column: "IdPatient");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Queries_Status",
-                table: "Queries",
-                column: "Status");
+                name: "IX_QueryPartients_IdDoctor",
+                table: "QueryPartients",
+                column: "IdDoctor");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Queries_StatusCategoryEntityIdStatus",
-                table: "Queries",
-                column: "StatusCategoryEntityIdStatus");
+                name: "IX_QueryPartients_IdPatient",
+                table: "QueryPartients",
+                column: "IdPatient");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_QueryPartients_IdStatus",
+                table: "QueryPartients",
+                column: "IdStatus");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_CPF",
+                table: "Users",
+                column: "CPF",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_Email",
@@ -208,9 +261,9 @@ namespace Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_Profile",
+                name: "IX_Users_IdProfile",
                 table: "Users",
-                column: "Profile");
+                column: "IdProfile");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -219,16 +272,19 @@ namespace Data.Migrations
                 name: "PatientHistories");
 
             migrationBuilder.DropTable(
+                name: "QueryPartients");
+
+            migrationBuilder.DropTable(
                 name: "Queries");
+
+            migrationBuilder.DropTable(
+                name: "StatusCategories");
 
             migrationBuilder.DropTable(
                 name: "Doctors");
 
             migrationBuilder.DropTable(
                 name: "Patients");
-
-            migrationBuilder.DropTable(
-                name: "StatusCategories");
 
             migrationBuilder.DropTable(
                 name: "Users");

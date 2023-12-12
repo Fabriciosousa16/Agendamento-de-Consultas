@@ -3,14 +3,13 @@ using System;
 using Api.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Data.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20231211155840_EntityMigration")]
+    [Migration("20231211230050_EntityMigration")]
     partial class EntityMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,10 +22,14 @@ namespace Data.Migrations
             modelBuilder.Entity("Api.Domain.Entities.DoctorEntity", b =>
                 {
                     b.Property<int>("IdDoctor")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CreateAt")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<int>("IdUser")
+                        .HasColumnType("int");
 
                     b.Property<string>("Specialty")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -39,18 +42,24 @@ namespace Data.Migrations
 
                     b.HasKey("IdDoctor");
 
+                    b.HasIndex("IdUser");
+
                     b.ToTable("Doctors");
                 });
 
             modelBuilder.Entity("Api.Domain.Entities.PatientEntity", b =>
                 {
                     b.Property<int>("IdPatient")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CreateAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Flat")
+                    b.Property<int>("IdUser")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MedicalPlan")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<DateTime?>("UpdateAt")
@@ -58,27 +67,32 @@ namespace Data.Migrations
 
                     b.HasKey("IdPatient");
 
+                    b.HasIndex("IdUser");
+
                     b.ToTable("Patients");
                 });
 
             modelBuilder.Entity("Api.Domain.Entities.PatientHistoryEntity", b =>
                 {
+                    b.Property<int>("IdHistory")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreateAt")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<int>("IdPatient")
                         .HasColumnType("int");
 
                     b.Property<int>("IdQuery")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("CreateAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("IdHistory")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("UpdateAt")
                         .HasColumnType("datetime(6)");
 
-                    b.HasKey("IdPatient", "IdQuery");
+                    b.HasKey("IdHistory");
+
+                    b.HasIndex("IdPatient");
 
                     b.HasIndex("IdQuery");
 
@@ -111,9 +125,6 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("ConsultationSchedule")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<DateTime?>("CreateAt")
                         .HasColumnType("datetime(6)");
 
@@ -129,12 +140,6 @@ namespace Data.Migrations
                     b.Property<string>("Reason")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("StatusCategoryEntityIdStatus")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("UpdateAt")
                         .HasColumnType("datetime(6)");
 
@@ -144,11 +149,45 @@ namespace Data.Migrations
 
                     b.HasIndex("IdPatient");
 
-                    b.HasIndex("Status");
-
-                    b.HasIndex("StatusCategoryEntityIdStatus");
-
                     b.ToTable("Queries");
+                });
+
+            modelBuilder.Entity("Api.Domain.Entities.QueryPartientEntity", b =>
+                {
+                    b.Property<int>("IdQueryPartient")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreateAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("IdDoctor")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdPatient")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdStatus")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("UpdateAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("IdQueryPartient");
+
+                    b.HasIndex("IdDoctor");
+
+                    b.HasIndex("IdPatient");
+
+                    b.HasIndex("IdStatus");
+
+                    b.ToTable("QueryPartients");
                 });
 
             modelBuilder.Entity("Api.Domain.Entities.StatusCategoryEntity", b =>
@@ -175,13 +214,10 @@ namespace Data.Migrations
                 {
                     b.Property<int>("IdUser")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1)
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("CPF")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.Property<DateTime?>("CreateAt")
                         .HasColumnType("datetime(6)");
@@ -189,26 +225,27 @@ namespace Data.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
+                    b.Property<int>("IdProfile")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4")
-                        .HasMaxLength(255);
-
-                    b.Property<int>("Profile")
-                        .HasColumnType("int");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<DateTime?>("UpdateAt")
                         .HasColumnType("datetime(6)");
 
                     b.HasKey("IdUser");
 
+                    b.HasIndex("CPF")
+                        .IsUnique();
+
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.HasIndex("Profile");
+                    b.HasIndex("IdProfile");
 
                     b.ToTable("Users");
                 });
@@ -216,8 +253,8 @@ namespace Data.Migrations
             modelBuilder.Entity("Api.Domain.Entities.DoctorEntity", b =>
                 {
                     b.HasOne("Api.Domain.Entities.UserEntity", "User")
-                        .WithOne("Doctor")
-                        .HasForeignKey("Api.Domain.Entities.DoctorEntity", "IdDoctor")
+                        .WithMany()
+                        .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -225,8 +262,8 @@ namespace Data.Migrations
             modelBuilder.Entity("Api.Domain.Entities.PatientEntity", b =>
                 {
                     b.HasOne("Api.Domain.Entities.UserEntity", "User")
-                        .WithOne("Patient")
-                        .HasForeignKey("Api.Domain.Entities.PatientEntity", "IdPatient")
+                        .WithMany()
+                        .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -234,13 +271,13 @@ namespace Data.Migrations
             modelBuilder.Entity("Api.Domain.Entities.PatientHistoryEntity", b =>
                 {
                     b.HasOne("Api.Domain.Entities.PatientEntity", "Patient")
-                        .WithMany("PatientHistories")
+                        .WithMany()
                         .HasForeignKey("IdPatient")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Api.Domain.Entities.QueryEntity", "Query")
-                        .WithMany("PatientHistories")
+                        .WithMany()
                         .HasForeignKey("IdQuery")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -249,33 +286,44 @@ namespace Data.Migrations
             modelBuilder.Entity("Api.Domain.Entities.QueryEntity", b =>
                 {
                     b.HasOne("Api.Domain.Entities.DoctorEntity", "Doctor")
-                        .WithMany("Queries")
+                        .WithMany()
                         .HasForeignKey("IdDoctor")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Api.Domain.Entities.PatientEntity", "Patient")
-                        .WithMany("Queries")
+                        .WithMany()
+                        .HasForeignKey("IdPatient")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Api.Domain.Entities.QueryPartientEntity", b =>
+                {
+                    b.HasOne("Api.Domain.Entities.DoctorEntity", "Doctor")
+                        .WithMany()
+                        .HasForeignKey("IdDoctor")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Api.Domain.Entities.PatientEntity", "Patient")
+                        .WithMany()
                         .HasForeignKey("IdPatient")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Api.Domain.Entities.ProfileEntity", "StatusCategory")
+                    b.HasOne("Api.Domain.Entities.StatusCategoryEntity", "Status")
                         .WithMany()
-                        .HasForeignKey("Status")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasForeignKey("IdStatus")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Api.Domain.Entities.StatusCategoryEntity", null)
-                        .WithMany("Query")
-                        .HasForeignKey("StatusCategoryEntityIdStatus");
                 });
 
             modelBuilder.Entity("Api.Domain.Entities.UserEntity", b =>
                 {
-                    b.HasOne("Api.Domain.Entities.ProfileEntity", "ProfileStatus")
-                        .WithMany("Users")
-                        .HasForeignKey("Profile")
+                    b.HasOne("Api.Domain.Entities.ProfileEntity", "Profile")
+                        .WithMany()
+                        .HasForeignKey("IdProfile")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
