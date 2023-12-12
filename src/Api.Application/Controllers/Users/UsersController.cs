@@ -1,7 +1,10 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
+using Api.Domain.Dtos.User;
 using Api.Domain.Entities;
 using Api.Domain.Interfaces.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Application.Controllers.Users
@@ -17,9 +20,14 @@ namespace Api.Application.Controllers.Users
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }
 
+        [Authorize("Bearer")]
+        //[Authorize("AdministratorPolicy")]
         [HttpGet]
         public async Task<IActionResult> GetAllUsers()
         {
+            var claims = User.Claims.Select(c => $"{c.Type}: {c.Value}");
+            Console.WriteLine($"User Claims: {string.Join(", ", claims)}");
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState); //400 
@@ -35,6 +43,8 @@ namespace Api.Application.Controllers.Users
             }
         }
 
+        [Authorize("Bearer")]
+        //[Authorize("AdministratorPolicy")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserById(int id)
         {
@@ -57,8 +67,10 @@ namespace Api.Application.Controllers.Users
             }
         }
 
+        [Authorize("Bearer")]
+        //[Authorize("AdministratorPolicy")]
         [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] UserEntity user)
+        public async Task<IActionResult> CreateUser([FromBody] UserDtoCreate user)
         {
             if (!ModelState.IsValid)
             {
@@ -82,9 +94,10 @@ namespace Api.Application.Controllers.Users
                 return StatusCode(500, $"Internal server error: {ex.Message}");//500
             }
         }
-
+        [Authorize("Bearer")]
+        //[Authorize("AdministratorPolicy")]
         [HttpPut]
-        public async Task<IActionResult> UpdateUser([FromBody] UserEntity user)
+        public async Task<IActionResult> UpdateUser([FromBody] UserDtoUpdate user)
         {
             try
             {
@@ -101,6 +114,8 @@ namespace Api.Application.Controllers.Users
             }
         }
 
+        [Authorize("Bearer")]
+        //[Authorize("AdministratorPolicy")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {

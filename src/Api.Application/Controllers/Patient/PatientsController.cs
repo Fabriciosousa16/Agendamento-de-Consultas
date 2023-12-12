@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Api.Domain.Entities;
 using Api.Domain.Interfaces.Patient;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Application.Controllers.Patients
@@ -17,6 +18,9 @@ namespace Api.Application.Controllers.Patients
             _patientService = patientService ?? throw new ArgumentNullException(nameof(patientService));
         }
 
+        [Authorize("Bearer")]
+        //[Authorize("AdministratorPolicy")]
+        //[Authorize("PatientPolicy")]
         [HttpGet]
         public async Task<IActionResult> GetAllUsers()
         {
@@ -35,6 +39,9 @@ namespace Api.Application.Controllers.Patients
             }
         }
 
+        [Authorize("Bearer")]
+        //[Authorize("AdministratorPolicy")]
+        //[Authorize("PatientPolicy")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPatientById(int id)
         {
@@ -57,6 +64,9 @@ namespace Api.Application.Controllers.Patients
             }
         }
 
+        [Authorize("Bearer")]
+        //[Authorize("AdministratorPolicy")]
+        //[Authorize("PatientPolicy")]
         [HttpPost]
         public async Task<IActionResult> CreateUser([FromBody] PatientEntity patient)
         {
@@ -83,6 +93,9 @@ namespace Api.Application.Controllers.Patients
             }
         }
 
+        [Authorize("Bearer")]
+        //[Authorize("AdministratorPolicy")]
+        //[Authorize("PatientPolicy")]
         [HttpPut]
         public async Task<IActionResult> UpdateUser([FromBody] PatientEntity patient)
         {
@@ -101,6 +114,9 @@ namespace Api.Application.Controllers.Patients
             }
         }
 
+        [Authorize("Bearer")]
+        //[Authorize("AdministratorPolicy")]
+        //[Authorize("PatientPolicy")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {

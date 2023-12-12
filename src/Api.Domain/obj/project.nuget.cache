@@ -1,8 +1,18 @@
 {
   "version": 2,
-  "dgSpecHash": "Hrvjhm8oC3Vt6hSPCTHuJR9/6BHaueRghaF/PBvwMhVaJF7HzcyPKNMOVLvxv0mHlJhVYeZgtGVVqzZi8bjemw==",
+  "dgSpecHash": "T27C9SgWLWvYXXeKZJoF8Uge7cmzyyus9sAwS1t4Oyn3m7LjeIkoKgGa6ykY2LpnQM+vKZFDwDyN0ieB3sJbaw==",
   "success": true,
   "projectFilePath": "C:\\Agendamento-de-Consultas\\src\\Api.Domain\\Domain.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Fabricio Sousa\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\Fabricio Sousa\\.nuget\\packages\\microsoft.identitymodel.abstractions\\7.0.3\\microsoft.identitymodel.abstractions.7.0.3.nupkg.sha512",
+    "C:\\Users\\Fabricio Sousa\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\7.0.3\\microsoft.identitymodel.jsonwebtokens.7.0.3.nupkg.sha512",
+    "C:\\Users\\Fabricio Sousa\\.nuget\\packages\\microsoft.identitymodel.logging\\7.0.3\\microsoft.identitymodel.logging.7.0.3.nupkg.sha512",
+    "C:\\Users\\Fabricio Sousa\\.nuget\\packages\\microsoft.identitymodel.tokens\\7.0.3\\microsoft.identitymodel.tokens.7.0.3.nupkg.sha512",
+    "C:\\Users\\Fabricio Sousa\\.nuget\\packages\\system.identitymodel.tokens.jwt\\7.0.3\\system.identitymodel.tokens.jwt.7.0.3.nupkg.sha512",
+    "C:\\Users\\Fabricio Sousa\\.nuget\\packages\\system.security.cryptography.cng\\4.5.0\\system.security.cryptography.cng.4.5.0.nupkg.sha512",
+    "C:\\Users\\Fabricio Sousa\\.nuget\\packages\\system.text.encodings.web\\4.7.2\\system.text.encodings.web.4.7.2.nupkg.sha512",
+    "C:\\Users\\Fabricio Sousa\\.nuget\\packages\\system.text.json\\4.7.2\\system.text.json.4.7.2.nupkg.sha512"
+  ],
   "logs": []
 }

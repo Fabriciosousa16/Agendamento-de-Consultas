@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Api.Data.Context;
@@ -10,10 +11,13 @@ namespace Api.Data.Repository
     public class BaseRepository<T> : IRepository<T> where T : BaseEntity
     {
         protected readonly MyContext _context;
+        private DbSet<T> _dataset;
+
 
         public BaseRepository(MyContext context)
         {
             _context = context;
+            _dataset = _context.Set<T>();
         }
 
         public async Task<T> GetByIdAsync(int id)
@@ -28,16 +32,30 @@ namespace Api.Data.Repository
 
         public async Task<T> InsertAsync(T entity)
         {
+            entity.CreateAt = DateTime.UtcNow;
+            _dataset.Add(entity);
             _context.Set<T>().Add(entity);
             await _context.SaveChangesAsync();
             return entity;
         }
 
-        public async Task UpdateAsync(T entity)
+        public async Task<T> UpdateAsync(T entity)
         {
-            _context.Set<T>().Update(entity);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Set<T>().Update(entity);
+                entity.UpdateAt = DateTime.UtcNow;
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return entity;
+
         }
+
 
         public async Task<T> DeleteAsync(int id)
         {

@@ -7,7 +7,6 @@ namespace Api.Domain.Entities
 {
     public class BaseEntity
     {
-
         private DateTime? _createAt;
         public DateTime? CreateAt
         {

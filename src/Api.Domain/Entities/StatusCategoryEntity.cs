@@ -9,7 +9,6 @@ namespace Api.Domain.Entities
     {
         public int IdStatus { get; set; }
         public string Status { get; set; }
-        public ICollection<QueryEntity> Query { get; set; }
 
     }
 }

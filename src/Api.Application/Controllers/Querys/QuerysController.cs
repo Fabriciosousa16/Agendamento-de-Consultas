@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Api.Domain.Entities;
 using Api.Domain.Interfaces.Query;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Application.Controllers.Querys
@@ -17,6 +18,9 @@ namespace Api.Application.Controllers.Querys
             _queryService = queryService ?? throw new ArgumentNullException(nameof(queryService));
         }
 
+        [Authorize("Bearer")]
+        //[Authorize("AdministratorPolicy")]
+        //[Authorize("DoctorPolicy")]
         [HttpGet]
         public async Task<IActionResult> GetAllUsers()
         {
@@ -35,6 +39,9 @@ namespace Api.Application.Controllers.Querys
             }
         }
 
+        [Authorize("Bearer")]
+        //[Authorize("AdministratorPolicy")]
+        //[Authorize("DoctorPolicy")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetQueryById(int id)
         {
@@ -57,6 +64,9 @@ namespace Api.Application.Controllers.Querys
             }
         }
 
+        [Authorize("Bearer")]
+        //[Authorize("AdministratorPolicy")]
+        //[Authorize("DoctorPolicy")]
         [HttpPost]
         public async Task<IActionResult> CreateQuery([FromBody] QueryEntity query)
         {
@@ -83,6 +93,9 @@ namespace Api.Application.Controllers.Querys
             }
         }
 
+        [Authorize("Bearer")]
+        //[Authorize("AdministratorPolicy")]
+        //[Authorize("DoctorPolicy")]
         [HttpPut]
         public async Task<IActionResult> UpdateQuery([FromBody] QueryEntity query)
         {
@@ -101,6 +114,9 @@ namespace Api.Application.Controllers.Querys
             }
         }
 
+        [Authorize("Bearer")]
+        //[Authorize("AdministratorPolicy")]
+        //[Authorize("DoctorPolicy")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {

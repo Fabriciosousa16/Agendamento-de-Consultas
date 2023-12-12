@@ -10,6 +10,5 @@ namespace Api.Domain.Entities
         public int IdProfile { get; set; }
         public string Name { get; set; }
 
-        public ICollection<UserEntity> Users { get; set; }
     }
 }

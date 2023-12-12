@@ -77,3 +77,7 @@ C:\Agendamento-de-Consultas\src\Api.Application\bin\Debug\netcoreapp3.1\Swashbuc
 C:\Agendamento-de-Consultas\src\Api.Application\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Agendamento-de-Consultas\src\Api.Application\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Agendamento-de-Consultas\src\Api.Application\obj\Debug\netcoreapp3.1\application.MvcApplicationPartsAssemblyInfo.cs
+C:\Agendamento-de-Consultas\src\Api.Application\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Agendamento-de-Consultas\src\Api.Application\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Abstractions.dll
+C:\Agendamento-de-Consultas\src\Api.Application\bin\Debug\netcoreapp3.1\System.Text.Encodings.Web.dll
+C:\Agendamento-de-Consultas\src\Api.Application\bin\Debug\netcoreapp3.1\System.Text.Json.dll
