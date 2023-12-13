@@ -113,20 +113,49 @@ Sistema Desenvolvido utilizando principios de Arquitetura DDD.
 ------------------------------------------------------------------------------------------------------------------------------------------------
 Passos para rodar o sistema.
 
-Tenha instalado o banco de dados mysql.
+Tenha instalado o banco de dados mysql. 
 
-Altere
+Acesse a class ConfigureRepository, altere as informações abaixo de acordo com suas necessidades.
 
+ serviceCollection.AddDbContext<MyContext>(
+               options => options.UseMySql("Server=localhost;Port=3306;Database=dbagendamento;Uid=root;Pwd=root")
+           );
 
-Dentro da pasta Api.Data, conforme o caminho abaixp, rode o seguinte comando.
+Server - Servidor
+Port - Porta
+Darabase - Nome do Banco
+Uid - Nome de Usuário
+Pwd = Senha
 
-dotnet ef migrations add EntityMigration   (Usado para criar as entidades)
-dotnet ef database update  (Comando usado para atualizar a base de dados)
+As informações mencionadas acima, devem ser alteradas tambem na clss ContextFactory
 
+var connectionString = "Server=localhost;Port=3306;Database=dbAgendamento;Uid=root;Pwd=";
+
+Dentro da pasta Api.Data, conforme o caminho abaixo, rode o seguinte comando.
 
 C:\Agendamento-de-Consultas\src\Api.Data>
 
 
+dotnet ef migrations add EntityMigration   (Usado para criar as entidades)
+
+dotnet ef database update  (Comando usado para atualizar a base de dados)
+
+
+Para rodar o sistema, entre na pasta Api.Application, conforme caminho abaixo e rode o comando dotnet run
+
+C:\Agendamento-de-Consultas\src\Api.Application>
+
+Após rodar o comando verifique as informações
+
+info: Microsoft.Hosting.Lifetime[0]
+      Now listening on: http://localhost:5000
+
+Acessar o link disponivel, no nosso caso, o http://localhost:5000.
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+Trabahos futuros
+
+impleementei no banco uma tabela para consultar historicos do pacientes, mas nçao chequei a imprementar a mesma.
 
 
 
