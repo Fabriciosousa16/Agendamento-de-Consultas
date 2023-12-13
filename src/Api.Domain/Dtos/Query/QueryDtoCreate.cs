@@ -13,5 +13,9 @@ namespace Api.Domain.Dtos.Query
 
         [Required(ErrorMessage = "MedicalRecord é campo obrigatório")]
         public string MedicalRecord { get; set; }
+        [Required(ErrorMessage = "IdDoctor é campo obrigatório")]
+        public int IdDoctor { get; set; }
+        [Required(ErrorMessage = "IdPatient é campo obrigatório")]
+        public int IdPatient { get; set; }
     }
 }

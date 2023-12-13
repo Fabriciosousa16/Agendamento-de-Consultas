@@ -2,16 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Api.Domain.Dtos.QueryPatient;
 using Api.Domain.Entities;
 
 namespace Api.Domain.Interfaces.QueryPartient
 {
     public interface IQueryPartientService
     {
-        Task<QueryPartientEntity> GetAsync(int id);
-        Task<IEnumerable<QueryPartientEntity>> GetAllAsync();
-        Task<QueryPartientEntity> PostAsync(QueryPartientEntity queryPartient);
-        Task<QueryPartientEntity> PutAsync(QueryPartientEntity queryPartient);
-        Task<QueryPartientEntity> DeleteAsync(int id);
+        Task<QueryPatientDto> GetAsync(int id);
+        Task<IEnumerable<QueryPatientDto>> GetAllAsync();
+        Task<QueryPatientDtoCreateResult> PostAsync(QueryPatientDtoCreate queryPartient);
+        Task<QueryPatientDtoUpdateResult> PutAsync(QueryPatientDtoUpdate queryPartient);
+        Task<QueryPatientDto> DeleteAsync(int id);
     }
 }

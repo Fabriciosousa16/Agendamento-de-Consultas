@@ -6,5 +6,8 @@ namespace Api.Domain.Dtos.Doctor
     {
         [Required(ErrorMessage = "Specialty é campo obrigatório")]
         public string Specialty { get; set; }
+
+        [Required(ErrorMessage = "IdUser é campo obrigatório")]
+        public int IdUser { get; set; }
     }
 }

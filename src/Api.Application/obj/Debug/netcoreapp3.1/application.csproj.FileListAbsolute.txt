@@ -81,3 +81,4 @@ C:\Agendamento-de-Consultas\src\Api.Application\bin\Debug\netcoreapp3.1\Microsof
 C:\Agendamento-de-Consultas\src\Api.Application\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Abstractions.dll
 C:\Agendamento-de-Consultas\src\Api.Application\bin\Debug\netcoreapp3.1\System.Text.Encodings.Web.dll
 C:\Agendamento-de-Consultas\src\Api.Application\bin\Debug\netcoreapp3.1\System.Text.Json.dll
+C:\Agendamento-de-Consultas\src\Api.Application\bin\Debug\netcoreapp3.1\Dapper.dll

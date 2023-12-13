@@ -75,9 +75,8 @@ namespace application
                     .RequireAuthenticatedUser()
                     .Build());
 
-                auth.AddPolicy("AdministratorPolicy", policy => policy.RequireClaim("IdProfile", "1"));
-                auth.AddPolicy("DoctorPolicy", policy => policy.RequireClaim("IdProfile", "2"));
-                auth.AddPolicy("PatientPolicy", policy => policy.RequireClaim("IdProfile", "3"));
+                auth.AddPolicy("Doctor", policy => policy.RequireClaim("IdProfile", "2"));
+                auth.AddPolicy("Patient", policy => policy.RequireClaim("IdProfile", "3"));
             });
 
             services.AddSwaggerGen(c =>

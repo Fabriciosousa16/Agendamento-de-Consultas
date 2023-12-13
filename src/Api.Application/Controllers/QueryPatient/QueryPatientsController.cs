@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Api.Domain.Dtos.QueryPatient;
 using Api.Domain.Entities;
 using Api.Domain.Interfaces.QueryPartient;
 using Microsoft.AspNetCore.Authorization;
@@ -18,10 +19,9 @@ namespace Api.Application.Controllers.Patients
             _queryPatientService = queryPatientService ?? throw new ArgumentNullException(nameof(queryPatientService));
         }
 
-        [Authorize("Bearer")]
-        //[Authorize("AdministratorPolicy")]
-        //[Authorize("PatientPolicy")]
         [HttpGet]
+        [Authorize("Bearer")]
+        [Authorize("patient")]
         public async Task<IActionResult> GetAllUsers()
         {
             if (!ModelState.IsValid)
@@ -39,10 +39,9 @@ namespace Api.Application.Controllers.Patients
             }
         }
 
-        [Authorize("Bearer")]
-        //[Authorize("AdministratorPolicy")]
-        //[Authorize("PatientPolicy")]
         [HttpGet("{id}")]
+        [Authorize("Bearer")]
+        [Authorize("patient")]
         public async Task<IActionResult> GetPatientById(int id)
         {
             if (!ModelState.IsValid)
@@ -64,11 +63,10 @@ namespace Api.Application.Controllers.Patients
             }
         }
 
-        [Authorize("Bearer")]
-        //[Authorize("AdministratorPolicy")]
-        //[Authorize("PatientPolicy")]
         [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] QueryPartientEntity queryPatient)
+        [Authorize("Bearer")]
+        [Authorize("patient")]
+        public async Task<IActionResult> CreateUser([FromBody] QueryPatientDtoCreate queryPatient)
         {
             if (!ModelState.IsValid)
             {
@@ -93,11 +91,10 @@ namespace Api.Application.Controllers.Patients
             }
         }
 
-        [Authorize("Bearer")]
-        //[Authorize("AdministratorPolicy")]
-        //[Authorize("PatientPolicy")]
         [HttpPut]
-        public async Task<IActionResult> UpdateUser([FromBody] QueryPartientEntity queryPatient)
+        [Authorize("Bearer")]
+        [Authorize("patient")]
+        public async Task<IActionResult> UpdateUser([FromBody] QueryPatientDtoUpdate queryPatient)
         {
             try
             {
@@ -114,10 +111,9 @@ namespace Api.Application.Controllers.Patients
             }
         }
 
-        [Authorize("Bearer")]
-        //[Authorize("AdministratorPolicy")]
-        //[Authorize("PatientPolicy")]
         [HttpDelete("{id}")]
+        [Authorize("Bearer")]
+        [Authorize("patient")]
         public async Task<IActionResult> DeleteUser(int id)
         {
             if (!ModelState.IsValid)

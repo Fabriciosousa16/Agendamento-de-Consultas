@@ -11,7 +11,6 @@ namespace Api.Service.Services
 {
     public class UserService : IUserService
     {
-        private const bool V = false;
         private readonly IRepository<UserEntity> _repository;
         private readonly IMapper _mapper;
 

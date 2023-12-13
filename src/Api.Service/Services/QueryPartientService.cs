@@ -1,45 +1,59 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Api.Domain.Dtos.QueryPatient;
+using Api.Domain.Dtos.User;
 using Api.Domain.Entities;
 using Api.Domain.Interfaces;
 using Api.Domain.Interfaces.QueryPartient;
+using Api.Domain.Models;
+using AutoMapper;
 
 namespace Api.Service.Services
 {
     public class QueryPartientService : IQueryPartientService
     {
         private readonly IRepository<QueryPartientEntity> _repository;
+        private readonly IMapper _mapper;
 
-        public QueryPartientService(IRepository<QueryPartientEntity> repository)
+        public QueryPartientService(IRepository<QueryPartientEntity> repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
-        public async Task<QueryPartientEntity> GetAsync(int id)
+        public async Task<IEnumerable<QueryPatientDto>> GetAllAsync()
         {
-            return await _repository.GetByIdAsync(id);
+            var listEntity = await _repository.GetAllAsync();
+            return _mapper.Map<IEnumerable<QueryPatientDto>>(listEntity);
         }
 
-        public async Task<IEnumerable<QueryPartientEntity>> GetAllAsync()
+        public async Task<QueryPatientDto> GetAsync(int id)
         {
-            return await _repository.GetAllAsync();
+            var entity = await _repository.GetByIdAsync(id);
+            return _mapper.Map<QueryPatientDto>(entity);
         }
 
-        public async Task<QueryPartientEntity> PostAsync(QueryPartientEntity queryPatient)
+        public async Task<QueryPatientDtoCreateResult> PostAsync(QueryPatientDtoCreate queryPartient)
         {
-            return await _repository.InsertAsync(queryPatient);
+            var model = _mapper.Map<QueryPatientModel>(queryPartient);
+            var entity = _mapper.Map<QueryPartientEntity>(model);
+            var result = await _repository.InsertAsync(entity);
+
+            return _mapper.Map<QueryPatientDtoCreateResult>(result);
         }
 
-        public async Task<QueryPartientEntity> PutAsync(QueryPartientEntity queryPatient)
+        public async Task<QueryPatientDtoUpdateResult> PutAsync(QueryPatientDtoUpdate queryPartient)
         {
-            await _repository.UpdateAsync(queryPatient);
-            return queryPatient; // Retornando a entidade após a atualização
-        }
+            var model = _mapper.Map<QueryPatientModel>(queryPartient);
+            var entity = _mapper.Map<QueryPartientEntity>(model);
+            var result = await _repository.InsertAsync(entity);
 
-        public async Task<QueryPartientEntity> DeleteAsync(int id)
+            return _mapper.Map<QueryPatientDtoUpdateResult>(result);
+        }
+        public async Task<QueryPatientDto> DeleteAsync(int id)
         {
-            var deletedQueryPartient = await _repository.DeleteAsync(id);
-            return deletedQueryPartient; // Retornando a entidade excluída
+            var deletedQueryPatient = await _repository.DeleteAsync(id);
+            return _mapper.Map<QueryPatientDto>(deletedQueryPatient);
         }
     }
 }

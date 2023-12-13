@@ -24,7 +24,7 @@ namespace Api.CrossCutting.Mappings
             CreateMap<DoctorDtoCreateResult, DoctorEntity>().ReverseMap();
             CreateMap<DoctorDtoUpdateResult, DoctorEntity>().ReverseMap();
 
-            CreateMap<PatientDto, UserEntity>().ReverseMap();
+            CreateMap<PatientDto, PatientEntity>().ReverseMap();
             CreateMap<PatientDtoCreateResult, PatientEntity>().ReverseMap();
             CreateMap<PatientDtoUpdateResult, PatientEntity>().ReverseMap();
 

@@ -41,16 +41,9 @@ namespace Api.Data.Repository
 
         public async Task<T> UpdateAsync(T entity)
         {
-            try
-            {
-                _context.Set<T>().Update(entity);
-                entity.UpdateAt = DateTime.UtcNow;
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            _context.Set<T>().Update(entity);
+            entity.UpdateAt = DateTime.UtcNow;
+            await _context.SaveChangesAsync();
 
             return entity;
 

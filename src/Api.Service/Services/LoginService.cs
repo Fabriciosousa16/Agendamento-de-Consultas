@@ -1,8 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Reflection.Metadata;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
@@ -57,7 +54,7 @@ namespace Api.Service.Services
                             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                             new Claim(JwtRegisteredClaimNames.UniqueName, baseUser.Email),
                             // Adicione a reivindicação do perfil somente se não for nulo
-                            baseUser.Profile != null
+                            baseUser.IdProfile != null
                                 ? new Claim("IdProfile", baseUser.IdProfile.ToString(), ClaimValueTypes.Integer32)
                                 : null
                         }

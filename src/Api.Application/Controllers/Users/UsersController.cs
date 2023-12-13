@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Api.Domain.Dtos.User;
-using Api.Domain.Entities;
 using Api.Domain.Interfaces.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +20,6 @@ namespace Api.Application.Controllers.Users
         }
 
         [Authorize("Bearer")]
-        //[Authorize("AdministratorPolicy")]
         [HttpGet]
         public async Task<IActionResult> GetAllUsers()
         {
@@ -44,7 +42,6 @@ namespace Api.Application.Controllers.Users
         }
 
         [Authorize("Bearer")]
-        //[Authorize("AdministratorPolicy")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserById(int id)
         {
@@ -67,8 +64,7 @@ namespace Api.Application.Controllers.Users
             }
         }
 
-        [Authorize("Bearer")]
-        //[Authorize("AdministratorPolicy")]
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> CreateUser([FromBody] UserDtoCreate user)
         {
@@ -95,7 +91,6 @@ namespace Api.Application.Controllers.Users
             }
         }
         [Authorize("Bearer")]
-        //[Authorize("AdministratorPolicy")]
         [HttpPut]
         public async Task<IActionResult> UpdateUser([FromBody] UserDtoUpdate user)
         {
@@ -115,7 +110,6 @@ namespace Api.Application.Controllers.Users
         }
 
         [Authorize("Bearer")]
-        //[Authorize("AdministratorPolicy")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {

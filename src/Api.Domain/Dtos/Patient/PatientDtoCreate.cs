@@ -7,5 +7,8 @@ namespace Api.Domain.Dtos.Patient
     {
         [Required(ErrorMessage = "MedicalPlan é campo obrigatório")]
         public string MedicalPlan { get; set; }
+
+        [Required(ErrorMessage = "IdUser é campo obrigatório")]
+        public int IdUser { get; set; }
     }
 }

@@ -1,45 +1,59 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Api.Domain.Dtos.Patient;
 using Api.Domain.Entities;
 using Api.Domain.Interfaces;
 using Api.Domain.Interfaces.Patient;
+using Api.Domain.Models;
+using AutoMapper;
 
 namespace Api.Service.Services
 {
     public class PatientService : IPatientService
     {
         private readonly IRepository<PatientEntity> _repository;
+        private readonly IMapper _mapper;
 
-        public PatientService(IRepository<PatientEntity> repository)
+        public PatientService(IRepository<PatientEntity> repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
-        public async Task<PatientEntity> GetAsync(int id)
+        public async Task<IEnumerable<PatientDto>> GetAllAsync()
         {
-            return await _repository.GetByIdAsync(id);
+            var listEntity = await _repository.GetAllAsync();
+            return _mapper.Map<IEnumerable<PatientDto>>(listEntity);
         }
 
-        public async Task<IEnumerable<PatientEntity>> GetAllAsync()
+        public async Task<PatientDto> GetAsync(int id)
         {
-            return await _repository.GetAllAsync();
+            var entity = await _repository.GetByIdAsync(id);
+            return _mapper.Map<PatientDto>(entity);
         }
 
-        public async Task<PatientEntity> PostAsync(PatientEntity patient)
+        public async Task<PatientDtoCreateResult> PostAsync(PatientDtoCreate patient)
         {
-            return await _repository.InsertAsync(patient);
+            var model = _mapper.Map<PatientModel>(patient);
+            var entity = _mapper.Map<PatientEntity>(model);
+            var result = await _repository.UpdateAsync(entity);
+
+            return _mapper.Map<PatientDtoCreateResult>(result);
         }
 
-        public async Task<PatientEntity> PutAsync(PatientEntity patient)
+        public async Task<PatientDtoUpdateResult> PutAsync(PatientDtoUpdate patient)
         {
-            await _repository.UpdateAsync(patient);
-            return patient; // Retornando a entidade após a atualização
+            var model = _mapper.Map<PatientModel>(patient);
+            var entity = _mapper.Map<PatientEntity>(model);
+            var result = await _repository.UpdateAsync(entity);
+
+            return _mapper.Map<PatientDtoUpdateResult>(result);
         }
 
-        public async Task<PatientEntity> DeleteAsync(int id)
+        public async Task<PatientDto> DeleteAsync(int id)
         {
             var deletedPatient = await _repository.DeleteAsync(id);
-            return deletedPatient; // Retornando a entidade excluída
+            return _mapper.Map<PatientDto>(deletedPatient);
         }
     }
 }
