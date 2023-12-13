@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Api.Domain.Dtos.Query;
@@ -11,5 +12,6 @@ namespace Api.Domain.Interfaces.Query
         Task<QueryDtoCreateResult> PostAsync(QueryDtoCreate doctor);
         Task<QueryDtoUpdateResult> PutAsync(QueryDtoUpdate doctor);
         Task<QueryDto> DeleteAsync(int id);
+
     }
 }

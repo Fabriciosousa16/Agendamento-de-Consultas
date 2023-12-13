@@ -7,6 +7,7 @@ namespace Api.Domain.Entities
     {
         public int IdDoctor { get; set; }
         public string Specialty { get; set; }
+        public string WorkSchedule { get; set; }
         public int IdUser { get; set; }
         [JsonIgnore]
         public UserEntity User { get; set; }

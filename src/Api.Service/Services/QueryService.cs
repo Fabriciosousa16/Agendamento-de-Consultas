@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Api.Domain.Dtos.Query;
@@ -6,6 +7,8 @@ using Api.Domain.Interfaces;
 using Api.Domain.Interfaces.Query;
 using Api.Domain.Models;
 using AutoMapper;
+using Dapper;
+using MySql.Data.MySqlClient;
 
 namespace Api.Service.Services
 {
@@ -56,7 +59,6 @@ namespace Api.Service.Services
             var deletedQuery = await _repository.DeleteAsync(id);
             return _mapper.Map<QueryDto>(deletedQuery);
         }
-
 
     }
 }
